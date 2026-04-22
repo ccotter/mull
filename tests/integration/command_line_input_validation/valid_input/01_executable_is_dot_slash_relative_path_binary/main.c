@@ -9,5 +9,5 @@ int main(int argc, char **argv) {
 // clang-format off
 
 // RUN: %clang_cc %sysroot %pass_mull_ir_frontend  %s -g -o %s.exe
-// RUN: %mull_runner main.c.exe -ide-reporter-show-killed | %filecheck %s --dump-input=fail --match-full-lines
+// RUN: %mull_runner main.c.exe -ide-reporter-show-killed  2>&1 | %filecheck %s --dump-input=fail --match-full-lines
 // CHECK: [info] Killed mutants (1/1):

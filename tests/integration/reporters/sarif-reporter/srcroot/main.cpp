@@ -12,7 +12,7 @@ int main() {
 
 RUN: %clang_cxx %sysroot -g -O0 %pass_mull_ir_frontend %s -o %s-ir.exe
 
-RUN: %mull_runner --allow-surviving %s-ir.exe --report-name test --reporters Sarif --report-patch-base %S | %filecheck %s --dump-input=fail --check-prefix=CHECK-RUNNER
+RUN: %mull_runner --allow-surviving %s-ir.exe --report-name test --reporters Sarif --report-patch-base %S  2>&1 | %filecheck %s --dump-input=fail --check-prefix=CHECK-RUNNER
 
 RUN: [[ -f %S/test.sarif ]]
 RUN: %jq -r '.runs[0].originalUriBaseIds | to_entries[0] | [.key, .value.uri] | .[]' %S/test.sarif | %filecheck %s --check-prefix=CHECK-SRCROOT

@@ -33,8 +33,8 @@ RUN: (env "cxx_add_to_sub:$FILEPATH:6:12:6:13"=1 %s-ir.exe || true) | %filecheck
 STANDALONE_WITHOUT_MUTATION:NORMAL
 STANDALONE_WITH_MUTATION:MUTATED
 
-RUN: %mull_runner %s-ast.exe -ide-reporter-show-killed | %filecheck %s --dump-input=fail --strict-whitespace --match-full-lines --check-prefix=MULL_RUNNER
-RUN: %mull_runner %s-ir.exe -ide-reporter-show-killed | %filecheck %s --dump-input=fail --strict-whitespace --match-full-lines --check-prefix=MULL_RUNNER
+RUN: %mull_runner %s-ast.exe -ide-reporter-show-killed  2>&1 | %filecheck %s --dump-input=fail --strict-whitespace --match-full-lines --check-prefix=MULL_RUNNER
+RUN: %mull_runner %s-ir.exe -ide-reporter-show-killed  2>&1 | %filecheck %s --dump-input=fail --strict-whitespace --match-full-lines --check-prefix=MULL_RUNNER
 
 MULL_RUNNER:[info] Killed mutants (1/1):
 MULL_RUNNER:{{.*}}sample.cpp:6:12: warning: Killed: Replaced + with - [cxx_add_to_sub]

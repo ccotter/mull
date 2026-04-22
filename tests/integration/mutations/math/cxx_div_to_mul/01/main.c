@@ -16,7 +16,7 @@ int main() {
 // clang-format off
 
 // RUN: %clang_cc %sysroot -O0 %pass_mull_ir_frontend -g %s -o %s-ir.exe
-// RUN: unset TERM; %mull_runner -ide-reporter-show-killed -reporters=IDE %s-ir.exe | %filecheck %s --dump-input=fail
+// RUN: unset TERM; %mull_runner -ide-reporter-show-killed -reporters=IDE %s-ir.exe  2>&1 | %filecheck %s --dump-input=fail
 // CHECK:[info] Killed mutants (1/1):
 // CHECK:{{.*}}main.c:2:12: warning: Killed: Replaced / with * [cxx_div_to_mul]
 // CHECK:  return a / b;

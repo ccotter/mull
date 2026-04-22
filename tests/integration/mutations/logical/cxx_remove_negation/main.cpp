@@ -15,7 +15,7 @@ int main() {
 
 /**
 RUN: %clang_cxx %sysroot -O0 %pass_mull_ir_frontend -g %s -o %s-ir.exe
-RUN: unset TERM; %mull_runner --allow-surviving -workers=1 --ide-reporter-show-killed -reporters=IDE %s-ir.exe | %filecheck %s --dump-input=fail
+RUN: unset TERM; %mull_runner --allow-surviving -workers=1 --ide-reporter-show-killed -reporters=IDE %s-ir.exe  2>&1 | %filecheck %s --dump-input=fail
 CHECK:[info] Running mutants (threads: 1)
 CHECK:{{.*       \[################################\] 2/2\. Finished .*}}
 CHECK:[info] Killed mutants (1/2):

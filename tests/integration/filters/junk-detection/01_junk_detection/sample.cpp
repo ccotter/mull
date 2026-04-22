@@ -16,7 +16,7 @@ RUN: sed -e "s:%CC:%clang_cc:g" %S/Output/compile_commands.json.temp > %S/compil
 RUN: cd %S && env MULL_CONFIG=%S/mull.yml %clang_cxx %sysroot -O0 %pass_mull_ir_frontend -g %s -o %s-ir.exe 2>&1 | %filecheck %s --dump-input=fail --strict-whitespace --match-full-lines --check-prefix=CHECK_MUTATE
 CHECK_MUTATE-NOT:{{.*}}: fatal error: 'stdarg.h' file not found
 
-RUN: %mull_runner -workers=1 -reporters=IDE -ide-reporter-show-killed %s-ir.exe | %filecheck %s --dump-input=fail --strict-whitespace --match-full-lines --check-prefix=WITH-JUNK-DETECTION
+RUN: %mull_runner -workers=1 -reporters=IDE -ide-reporter-show-killed %s-ir.exe  2>&1 | %filecheck %s --dump-input=fail --strict-whitespace --match-full-lines --check-prefix=WITH-JUNK-DETECTION
 
 WITH-JUNK-DETECTION:{{^.*}}[info] Running mutants (threads: 1){{$}}
 WITH-JUNK-DETECTION:[info] Killed mutants (1/1):

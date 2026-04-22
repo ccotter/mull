@@ -10,7 +10,7 @@ int main() {
 // clang-format off
 
 // RUN: %clang_cc %sysroot -O0 %pass_mull_ir_frontend -g %s -o %s-ir.exe
-// RUN: unset TERM; %mull_runner -ide-reporter-show-killed -reporters=IDE %s-ir.exe | %filecheck %s --dump-input=fail
+// RUN: unset TERM; %mull_runner -ide-reporter-show-killed -reporters=IDE %s-ir.exe  2>&1 | %filecheck %s --dump-input=fail
 // CHECK:[info] Killed mutants (1/1):
 // CHECK:{{.*}}main.c:2:7: warning: Killed: Replaced with = 42; [cxx_assign_const]
 // CHECK:  int b = a + 100;

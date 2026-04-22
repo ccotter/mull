@@ -52,5 +52,5 @@ int main() {
 // CHECK-NEXT:42
 // CHECK-EMPTY
 
-// RUN: unset TERM; %mull_runner %s.exe | %filecheck %s --dump-input=fail --strict-whitespace --match-full-lines --check-prefix=CHECK_MUTANT
+// RUN: unset TERM; %mull_runner %s.exe  2>&1 | %filecheck %s --dump-input=fail --strict-whitespace --match-full-lines --check-prefix=CHECK_MUTANT
 // CHECK_MUTANT:[info] No mutants found. Mutation score: infinitely high

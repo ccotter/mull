@@ -29,7 +29,7 @@ RUN: (env "cxx_post_inc_to_post_dec:%s:7:6:7:8"=1 %s.exe || true) | %filecheck %
 STANDALONE_WITHOUT_MUTATION:NORMAL
 STANDALONE_WITH_MUTATION:MUTATED
 
-RUN: %mull_runner %s.exe -ide-reporter-show-killed | %filecheck %s --dump-input=fail --strict-whitespace --match-full-lines --check-prefix=MULL_RUNNER
+RUN: %mull_runner %s.exe -ide-reporter-show-killed  2>&1 | %filecheck %s --dump-input=fail --strict-whitespace --match-full-lines --check-prefix=MULL_RUNNER
 
 MULL_RUNNER:[info] Killed mutants (1/1):
 MULL_RUNNER:{{.*}}sample.cpp:7:6: warning: Killed: Replaced ++ with -- [cxx_post_inc_to_post_dec]

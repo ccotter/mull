@@ -29,7 +29,7 @@ RUN: (env "cxx_sub_assign_to_add_assign:%s:7:7:7:9"=1 %s.exe || true) | %fileche
 STANDALONE_WITHOUT_MUTATION:NORMAL
 STANDALONE_WITH_MUTATION:MUTATED
 
-RUN: %mull_runner %s.exe -ide-reporter-show-killed | %filecheck %s --dump-input=fail --strict-whitespace --match-full-lines --check-prefix=MULL_RUNNER
+RUN: %mull_runner %s.exe -ide-reporter-show-killed  2>&1 | %filecheck %s --dump-input=fail --strict-whitespace --match-full-lines --check-prefix=MULL_RUNNER
 
 MULL_RUNNER:[info] Killed mutants (1/1):
 MULL_RUNNER:{{.*}}sample.cpp:7:7: warning: Killed: Replaced -= with += [cxx_sub_assign_to_add_assign]

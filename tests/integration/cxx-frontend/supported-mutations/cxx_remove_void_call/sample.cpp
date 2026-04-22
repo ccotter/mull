@@ -33,7 +33,7 @@ RUN: (env "cxx_remove_void_call:%s:11:3:11:25"=1 %s.exe || true) | %filecheck %s
 STANDALONE_WITHOUT_MUTATION:NORMAL
 STANDALONE_WITH_MUTATION:MUTATED
 
-RUN: %mull_runner %s.exe -ide-reporter-show-killed | %filecheck %s --dump-input=fail --strict-whitespace --match-full-lines --check-prefix=MULL_RUNNER
+RUN: %mull_runner %s.exe -ide-reporter-show-killed  2>&1 | %filecheck %s --dump-input=fail --strict-whitespace --match-full-lines --check-prefix=MULL_RUNNER
 
 MULL_RUNNER:[info] Killed mutants (1/1):
 MULL_RUNNER:{{.*}}sample.cpp:11:3: warning: Killed: Replaced voidSum(a, b, &result) with  [cxx_remove_void_call]

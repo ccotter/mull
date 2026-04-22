@@ -28,7 +28,7 @@ RUN: (env "cxx_add_to_sub:$(realpath %s):6:12:6:13"=1 %s.exe || true) | %fileche
 
 STANDALONE_WITHOUT_MUTATION:NORMAL
 
-RUN: unset TERM; %mull_runner --allow-surviving %s.exe | %filecheck %s --dump-input=fail --strict-whitespace --match-full-lines --check-prefix=MULL_RUNNER
+RUN: unset TERM; %mull_runner --allow-surviving %s.exe  2>&1 | %filecheck %s --dump-input=fail --strict-whitespace --match-full-lines --check-prefix=MULL_RUNNER
 
 MULL_RUNNER:[info] Survived mutants (1/1):
 MULL_RUNNER-NEXT:{{^.*}}sample.cpp:6:12: warning: Survived: Replaced + with - [cxx_add_to_sub]

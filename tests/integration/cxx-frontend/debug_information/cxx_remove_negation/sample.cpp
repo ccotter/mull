@@ -20,7 +20,7 @@ int main() {
 
 /**
 RUN: %clang_cxx %sysroot -g %pass_mull_ir_frontend %s -o %s-ir.exe
-RUN: %clang_cxx %sysroot -fplugin=%mull_frontend_cxx %s -o %s-ast.exe | %filecheck %s --dump-input=fail --strict-whitespace --match-full-lines --check-prefix=FRONTEND
+RUN: %clang_cxx %sysroot -fplugin=%mull_frontend_cxx %s -o %s-ast.exe  2>&1 | %filecheck %s --dump-input=fail --strict-whitespace --match-full-lines --check-prefix=FRONTEND
 FRONTEND:Recording mutation point: cxx_remove_negation:{{.*}}/sample.cpp:6:10:6:11 (end: 6:11)
 
 RUN: %s-ast.exe | %filecheck %s --dump-input=fail --strict-whitespace --match-full-lines --check-prefix=STANDALONE_WITHOUT_MUTATION
@@ -34,8 +34,8 @@ RUN: (env "cxx_remove_negation:$FILEPATH:6:10:6:11"=1 %s-ir.exe || true) | %file
 STANDALONE_WITHOUT_MUTATION:NORMAL
 STANDALONE_WITH_MUTATION:MUTATED
 
-RUN: %mull_runner %s-ast.exe -ide-reporter-show-killed | %filecheck %s --dump-input=fail --strict-whitespace --match-full-lines --check-prefix=MULL_RUNNER
-RUN: %mull_runner %s-ir.exe -ide-reporter-show-killed | %filecheck %s --dump-input=fail --strict-whitespace --match-full-lines --check-prefix=MULL_RUNNER
+RUN: %mull_runner %s-ast.exe -ide-reporter-show-killed  2>&1 | %filecheck %s --dump-input=fail --strict-whitespace --match-full-lines --check-prefix=MULL_RUNNER
+RUN: %mull_runner %s-ir.exe -ide-reporter-show-killed  2>&1 | %filecheck %s --dump-input=fail --strict-whitespace --match-full-lines --check-prefix=MULL_RUNNER
 
 MULL_RUNNER:[info] Killed mutants (1/1):
 MULL_RUNNER:{{.*}}sample.cpp:6:10: warning: Killed: Replaced ! with  [cxx_remove_negation]

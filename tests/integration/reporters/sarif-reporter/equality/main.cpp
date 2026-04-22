@@ -12,8 +12,8 @@ int main() {
 
 RUN: %clang_cxx %sysroot -g -O0 %pass_mull_ir_frontend main.cpp -o main.cpp-ir.exe
 
-RUN: %mull_runner --allow-surviving main.cpp-ir.exe --report-name test --reporters Sarif --reporters SQLite | %filecheck %s --dump-input=fail --check-prefix=CHECK-RUNNER
-RUN: %mull_reporter --allow-surviving test.sqlite --report-name test2 --reporters Sarif | %filecheck %s --dump-input=fail --check-prefix=CHECK-REPORTER
+RUN: %mull_runner --allow-surviving main.cpp-ir.exe --report-name test --reporters Sarif --reporters SQLite  2>&1 | %filecheck %s --dump-input=fail --check-prefix=CHECK-RUNNER
+RUN: %mull_reporter --allow-surviving test.sqlite --report-name test2 --reporters Sarif  2>&1 | %filecheck %s --dump-input=fail --check-prefix=CHECK-REPORTER
 
 RUN: [[ -f %S/test.sarif ]]
 RUN: %jq -r '[.version, .runs[0].tool.driver.name, .runs[0].results[0].ruleId, .runs[0].results[0].level, (.runs[0].results[0].locations[0].physicalLocation.region.startLine | tostring), (.runs[0].results[0].partialFingerprints | to_entries[0].key), (.runs[0].results[0].partialFingerprints | to_entries[0].value)] | .[]' %S/test.sarif | %filecheck %s --check-prefix=CHECK-SARIF

@@ -10,8 +10,8 @@ int main() {
 
 /**
 RUN: %clang_cxx %sysroot %pass_mull_ir_frontend -g %s -o %s.exe
-RUN: %mull_runner -reporters=IDE -ide-reporter-show-killed %s.exe | %filecheck %s --dump-input=fail --strict-whitespace --match-full-lines --check-prefix=WITHOUT-DEBUG
-RUN: %mull_runner -reporters=IDE -ide-reporter-show-killed %s.exe -debug | %filecheck %s --dump-input=fail --strict-whitespace --match-full-lines --check-prefix=WITH-DEBUG
+RUN: %mull_runner -reporters=IDE -ide-reporter-show-killed %s.exe  2>&1 | %filecheck %s --dump-input=fail --strict-whitespace --match-full-lines --check-prefix=WITHOUT-DEBUG
+RUN: %mull_runner -reporters=IDE -ide-reporter-show-killed %s.exe -debug  2>&1 | %filecheck %s --dump-input=fail --strict-whitespace --match-full-lines --check-prefix=WITH-DEBUG
 
 WITHOUT-DEBUG-NOT:{{^.*\[debug\].*$}}
 WITHOUT-DEBUG:{{^.*}}sample.cpp:2:12: warning: Killed: Replaced + with - [cxx_add_to_sub]{{$}}

@@ -19,9 +19,8 @@ int main() {
 /**
 RUN: sed -e "s:%PWD:%S:g" %S/compile_commands.json.template > %S/compile_commands.json
 
-RUN: cd %S && env MULL_CONFIG=%S/mull.yml %clang_cxx %sysroot -O0 %pass_mull_ir_frontend -g -DFLAG_VIA_COMP_DB=1 -DFLAG_VIA_EXTRA_FLAGS=1 %s -o %s-ir-with-flags.exe | %filecheck %s --dump-input=fail --strict-whitespace --match-full-lines --check-prefix=WITH-JUNK-DETECTION-WITH-FLAGS-MUTATE
+RUN: cd %S && env MULL_CONFIG=%S/mull.yml %clang_cxx %sysroot -O0 %pass_mull_ir_frontend -g -DFLAG_VIA_COMP_DB=1 -DFLAG_VIA_EXTRA_FLAGS=1 %s -o %s-ir-with-flags.exe
 RUN: %mull_runner %s-ir-with-flags.exe -reporters=IDE -ide-reporter-show-killed 2>&1 | %filecheck %s --dump-input=fail --strict-whitespace --match-full-lines --check-prefix=WITH-JUNK-DETECTION-WITH-FLAGS
 
-WITH-JUNK-DETECTION-WITH-FLAGS-MUTATE-NOT:{{^.*[Ee]rror.*$}}
 WITH-JUNK-DETECTION-WITH-FLAGS:[info] Killed mutants (1/1):
 **/

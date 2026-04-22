@@ -27,7 +27,7 @@ int main() {
 // clang-format off
 
 // RUN: %clang_cc %sysroot -O0 %pass_mull_ir_frontend -g %s -o %s-ir.exe
-// RUN: unset TERM; %mull_runner -ide-reporter-show-killed -reporters=IDE %s-ir.exe | %filecheck %s --dump-input=fail
+// RUN: unset TERM; %mull_runner -ide-reporter-show-killed -reporters=IDE %s-ir.exe  2>&1 | %filecheck %s --dump-input=fail
 // CHECK:[info] Killed mutants (1/1):
 // CHECK:{{.*}}count_letter.c:8:19: warning: Killed: Replaced + with - [cxx_add_to_sub]
 // CHECK:    count = count + 1;

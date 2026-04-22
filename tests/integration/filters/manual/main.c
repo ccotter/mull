@@ -46,7 +46,7 @@ int main(int argc, char **argv) {
 
 // RUN: %clang_cc %sysroot %pass_mull_ir_frontend -g %s -o %s.exe
 
-// RUN: unset TERM; %mull_runner --allow-surviving --ide-reporter-show-killed %s.exe | %filecheck %s --dump-input=fail --strict-whitespace --match-full-lines
+// RUN: unset TERM; %mull_runner --allow-surviving --ide-reporter-show-killed %s.exe  2>&1 | %filecheck %s --dump-input=fail --strict-whitespace --match-full-lines
 
 // CHECK:[info] Survived mutants (5/5):
 // CHECK-NEXT:{{.*}}/header.h:7:12: warning: Survived: Replaced - with + [cxx_sub_to_add]

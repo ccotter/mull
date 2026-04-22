@@ -19,7 +19,7 @@ int main() {
 // clang-format off
 
 // RUN: %clang_cc %sysroot -O0 %pass_mull_ir_frontend -g %s -o %s-ir.exe
-// RUN: unset TERM; %mull_runner -ide-reporter-show-killed -reporters=IDE %s-ir.exe | %filecheck %s --dump-input=fail
+// RUN: unset TERM; %mull_runner -ide-reporter-show-killed -reporters=IDE %s-ir.exe  2>&1 | %filecheck %s --dump-input=fail
 // CHECK:[info] Killed mutants (1/1):
 // CHECK:{{.*}}8:3: warning: Killed: Replaced void_function() with  [cxx_remove_void_call]
 // CHECK:  void_function();

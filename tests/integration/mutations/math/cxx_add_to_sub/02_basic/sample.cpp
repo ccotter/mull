@@ -2,7 +2,7 @@
 
 /**
 RUN: %clang_cxx %sysroot -O0 %pass_mull_ir_frontend -g %s -o %s-ir.exe
-RUN: unset TERM; %mull_runner -reporters=IDE %s-ir.exe | %filecheck %s --dump-input=fail
+RUN: unset TERM; %mull_runner -reporters=IDE %s-ir.exe  2>&1 | %filecheck %s --dump-input=fail
 CHECK:[info] Running mutants (threads: 1)
 CHECK:{{.*       \[################################\] 1/1\. Finished .*}}
 CHECK:[info] Mutation score: 100%
