@@ -24,7 +24,6 @@
 #include <llvm/Support/SourceMgr.h>
 #include <llvm/Support/SystemUtils.h>
 #include <llvm/Support/ToolOutputFile.h>
-#include <unistd.h>
 
 static llvm::cl::opt<std::string> InputFile(llvm::cl::Positional,
                                              llvm::cl::desc("<input.bc>"),
@@ -50,21 +49,7 @@ int main(int argc, char **argv) {
     return 1;
   }
 
-  // When writing bitcode to stdout, redirect fd 1 to fd 2 during
-  // mutateBitcode() so diagnostic output ([info]/[warning]) goes to stderr
-  // rather than corrupting the bitcode stream.
-  int savedStdout = -1;
-  if (OutputFile == "-") {
-    savedStdout = dup(STDOUT_FILENO);
-    dup2(STDERR_FILENO, STDOUT_FILENO);
-  }
-
   mull::mutateBitcode(*module);
-
-  if (savedStdout != -1) {
-    dup2(savedStdout, STDOUT_FILENO);
-    close(savedStdout);
-  }
 
   std::error_code ec;
   llvm::ToolOutputFile out(OutputFile, ec, llvm::sys::fs::OF_None);

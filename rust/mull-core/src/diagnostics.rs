@@ -15,7 +15,7 @@ pub struct MullDiagnostics {
 
 impl MullDiagnostics {
     pub fn new() -> Self {
-        Self::with_writer(Box::new(std::io::stdout()), true)
+        Self::with_writer(Box::new(std::io::stderr()), true)
     }
 
     pub fn with_writer(writer: Box<dyn Write + Send>, use_colors: bool) -> Self {
